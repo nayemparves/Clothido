@@ -19,3 +19,17 @@ Stage Summary:
 - Deliverable: runnable Next.js 16 Clothido e-commerce homepage at / (port 3000)
 - Key files: src/app/page.tsx, src/app/layout.tsx, src/lib/clothido-data.ts, src/components/clothido/{logo,header,hero,new-arrival,about,category-carousel,socks-spotlight,promos,footer}.tsx, public/images/* (34 images)
 - Design system preserved from source layout; branding fully rebranded to Clothido with original content and imagery
+
+---
+Task ID: 2
+Agent: Main Agent (Super Z)
+Task: Remove woman from hero campaign imagery (male-only model)
+
+Work Log:
+- Regenerated hero-campaign.png with a single male model in navy polo (1344x768); removed baked-in text via z-ai SDK images.generations.edit (scripts/edit_hero_man.ts)
+- Replaced public/images/hero-campaign.png with clean male-only version; deleted old man+woman asset
+- Updated alt texts in src/components/clothido/hero.tsx (hero banner + popup) to reflect male-only imagery
+- Browser verified: hero and popup render male-only image; no console errors; page 200
+
+Stage Summary:
+- Hero + campaign popup now feature only the male model; all other sections unchanged

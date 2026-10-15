@@ -40,7 +40,7 @@ export function Hero() {
       <section className="relative w-full h-[420px] md:h-[487px] mt-3 md:mt-4 overflow-hidden bg-[#E8E2D8]">
         <Image
           src="/images/hero-campaign.png"
-          alt="Clothido seasonal campaign — new arrivals for men and women"
+          alt="Clothido seasonal campaign — new arrivals for men"
           fill
           priority
           className="object-cover object-top"
@@ -135,7 +135,7 @@ export function Hero() {
             <div className="relative aspect-[4/5] sm:aspect-[5/5] bg-[#EAD9C9]">
               <Image
                 src="/images/hero-campaign.png"
-                alt="Clothido monsoon campaign — enjoy 600 BDT cashback"
+                alt="Clothido monsoon campaign — male model in navy polo, enjoy 600 BDT cashback"
                 fill
                 className="object-cover"
                 sizes="560px"
