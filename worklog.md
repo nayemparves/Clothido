@@ -48,3 +48,18 @@ Work Log:
 
 Stage Summary:
 - All imagery site-wide is now people-free except the male model (hero campaign + about lifestyle image); kurti/kids sections show garment-only product shots
+
+---
+Task ID: 4
+Agent: Main Agent (Super Z)
+Task: Fix girl picture still visible near "SHOP NOW" (stale browser cache of hero image)
+
+Work Log:
+- User reported a girl picture still visible near the SHOP NOW button; fresh browser session showed male-only hero, so diagnosed as stale browser cache: hero artwork was swapped in Task 2 without changing the filename /images/hero-campaign.png, so the user's browser kept serving the old man+woman version from cache
+- Cache-busted by renaming hero-campaign.png -> hero-campaign-v3.png; updated both references in src/components/clothido/hero.tsx (hero banner + campaign popup)
+- Re-audited all people-bearing images on disk: hero-bg (male), women-tee-rose (flat-lay, no person), women-tee-mint (headless mannequin), kurti-pink-v2 / kurti-teal-v2 / kids-frock-v2 (garment-only), bulk-order (clothes only), tee-designer (garment only) — zero female depictions site-wide
+- Verified: new URL HTTP 200, old URL 404 (dead), full-page sweep screenshot shows male-only hero + garment-only products, no console/page errors
+
+Stage Summary:
+- Root cause of the lingering girl picture was client-side cache, not the site content; the renamed asset forces every browser to load the male-only image
+- Site-wide imagery now guaranteed female-free: only male model (hero + about), headless mannequin, and garment-only shots

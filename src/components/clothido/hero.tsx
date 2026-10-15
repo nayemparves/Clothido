@@ -39,7 +39,7 @@ export function Hero() {
       {/* Hero banner — new campaign imagery */}
       <section className="relative w-full h-[420px] md:h-[487px] mt-3 md:mt-4 overflow-hidden bg-[#E8E2D8]">
         <Image
-          src="/images/hero-campaign.png"
+          src="/images/hero-campaign-v3.png"
           alt="Clothido seasonal campaign — new arrivals for men"
           fill
           priority
@@ -134,7 +134,7 @@ export function Hero() {
             </div>
             <div className="relative aspect-[4/5] sm:aspect-[5/5] bg-[#EAD9C9]">
               <Image
-                src="/images/hero-campaign.png"
+                src="/images/hero-campaign-v3.png"
                 alt="Clothido monsoon campaign — male model in navy polo, enjoy 600 BDT cashback"
                 fill
                 className="object-cover"
