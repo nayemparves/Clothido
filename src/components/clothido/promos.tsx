@@ -1,9 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import { partners } from "@/lib/clothido-data";
+import { useStore } from "@/lib/store";
 
 export function BulkOrder() {
+  const openBulk = useStore((s) => s.openBulk);
+
   return (
-    <section className="max-w-[1280px] mx-auto px-4 lg:px-6 py-8">
+    <section
+      id="bulk-order"
+      className="max-w-[1280px] mx-auto px-4 lg:px-6 py-8 scroll-mt-20"
+    >
       <div className="relative rounded-2xl overflow-hidden min-h-[220px]">
         <Image
           src="/images/bulk-order.png"
@@ -20,12 +28,12 @@ export function BulkOrder() {
             basics at wholesale prices. With no minimum order quantity, anyone can enjoy bulk
             pricing without ordering in bulk.
           </p>
-          <a
-            href="#"
-            className="inline-block w-fit bg-white text-[#282C3F] text-[12px] font-bold tracking-widest px-6 py-2.5 rounded-full hover:bg-[#0275D8] hover:text-white transition-colors"
+          <button
+            onClick={openBulk}
+            className="inline-block w-fit bg-white text-[#282C3F] text-[12px] font-bold tracking-widest px-6 py-2.5 rounded-full hover:bg-[#0275D8] hover:text-white transition-all active:scale-95"
           >
             GET A QUOTE
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -45,7 +53,7 @@ export function Partners() {
         {partners.map((p) => (
           <div
             key={p}
-            className="h-[72px] rounded-lg border border-[#EEE] bg-white grid place-items-center hover:shadow-md transition-shadow"
+            className="h-[72px] rounded-lg border border-[#EEE] bg-white grid place-items-center hover:shadow-md hover:border-[#0275D8]/40 transition-all"
           >
             <span className="text-[15px] font-extrabold tracking-tight text-[#9AA3AF]">
               {p}
@@ -58,11 +66,13 @@ export function Partners() {
 }
 
 export function AffiliateBanner() {
+  const openAffiliate = useStore((s) => s.openAffiliate);
+
   return (
     <section className="max-w-[1280px] mx-auto px-4 lg:px-6 py-6">
-      <a
-        href="#"
-        className="relative block rounded-2xl overflow-hidden bg-gradient-to-r from-[#FFB800] via-[#FF8A00] to-[#FF5E00] p-8 md:p-10 text-center group"
+      <button
+        onClick={openAffiliate}
+        className="relative block w-full rounded-2xl overflow-hidden bg-gradient-to-r from-[#FFB800] via-[#FF8A00] to-[#FF5E00] p-8 md:p-10 text-center group cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFB800]/50 active:scale-[0.99] transition-transform"
       >
         <div
           className="absolute inset-0 opacity-20"
@@ -86,7 +96,7 @@ export function AffiliateBanner() {
             BECOME AN AFFILIATE
           </span>
         </div>
-      </a>
+      </button>
     </section>
   );
 }

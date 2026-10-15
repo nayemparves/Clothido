@@ -1,9 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import { mediumTiles } from "@/lib/clothido-data";
+import { useStore } from "@/lib/store";
+import { categoryForName } from "@/lib/clothido-data";
 
 export function AboutBrand() {
   return (
-    <section className="max-w-[1280px] mx-auto px-4 lg:px-6 py-8 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center">
+    <section
+      id="about"
+      className="max-w-[1280px] mx-auto px-4 lg:px-6 py-8 grid md:grid-cols-[1.2fr_1fr] gap-8 items-center scroll-mt-20"
+    >
       <div>
         <h2 className="text-[26px] font-extrabold text-[#373A3C] mb-1">
           Cloth<span className="font-light">ido</span>
@@ -34,14 +41,17 @@ export function AboutBrand() {
 }
 
 export function MediumTiles() {
+  const openCategory = useStore((s) => s.openCategory);
+
   return (
     <section className="max-w-[1280px] mx-auto px-4 lg:px-6 py-2">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {mediumTiles.map((t, i) => (
-          <a
+          <button
             key={`${t.name}-${i}`}
-            href="#"
-            className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-[#F0F0F0]"
+            onClick={() => openCategory(categoryForName(t.name))}
+            aria-label={`Browse ${t.name}`}
+            className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0275D8] active:scale-[0.98] transition-transform"
           >
             <Image
               src={t.image}
@@ -54,7 +64,7 @@ export function MediumTiles() {
             <span className="absolute bottom-3 left-0 right-0 text-center text-white text-[13px] font-bold drop-shadow">
               {t.name}
             </span>
-          </a>
+          </button>
         ))}
       </div>
     </section>

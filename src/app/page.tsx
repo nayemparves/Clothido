@@ -6,6 +6,7 @@ import { CategoryCarousel } from "@/components/clothido/category-carousel";
 import { SocksSpotlight } from "@/components/clothido/socks-spotlight";
 import { BulkOrder, Partners, AffiliateBanner } from "@/components/clothido/promos";
 import { Footer } from "@/components/clothido/footer";
+import { InteractiveShell } from "@/components/clothido/shell";
 import { categorySections } from "@/lib/clothido-data";
 
 export default function Home() {
@@ -41,6 +42,7 @@ export default function Home() {
         <AffiliateBanner />
       </main>
       <Footer />
+      <InteractiveShell />
     </div>
   );
 }

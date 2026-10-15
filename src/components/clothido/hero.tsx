@@ -3,36 +3,53 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useStore } from "@/lib/store";
+
+const QUICK_LINKS: { label: string; target: string }[] = [
+  { label: "SHOP NOW", target: "#new-arrival" },
+  { label: "MEN", target: "#category-polo" },
+  { label: "WOMEN", target: "#category-women" },
+  { label: "KIDS", target: "#category-kids" },
+];
 
 const UTILITY_LINKS = [
-  { label: "Login", desc: "Enter Your Account" },
-  { label: "Track Order", desc: "Know Your Order Status" },
+  { label: "Login", desc: "Enter Your Account", action: "login" as const },
+  { label: "Track Order", desc: "Know Your Order Status", action: "track" as const },
 ];
 
 export function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
+  const openAuth = useStore((s) => s.openAuth);
+  const openTrack = useStore((s) => s.openTrack);
+  const { toast } = useToast();
 
   useEffect(() => {
     const t = setTimeout(() => setPopupOpen(true), 800);
     return () => clearTimeout(t);
   }, []);
 
+  const goTo = (target: string) => {
+    setPopupOpen(false);
+    document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
       {/* Utility strip */}
       <div className="hidden md:flex max-w-[1280px] mx-auto px-6 gap-6 pt-[72px]">
         {UTILITY_LINKS.map((l) => (
-          <a
+          <button
             key={l.label}
-            href="#"
-            className="flex-1 flex items-center justify-between border border-[#EBEBEB] rounded-lg px-5 py-3 hover:border-[#0275D8] group transition-colors"
+            onClick={() => (l.action === "login" ? openAuth() : openTrack())}
+            className="flex-1 flex items-center justify-between border border-[#EBEBEB] rounded-lg px-5 py-3 hover:border-[#0275D8] group transition-colors text-left active:scale-[0.99]"
           >
             <div>
               <p className="text-sm font-bold text-[#373A3C]">{l.label}</p>
               <p className="text-xs text-[#888]">{l.desc}</p>
             </div>
             <span className="text-[#0275D8] group-hover:translate-x-1 transition-transform">❯</span>
-          </a>
+          </button>
         ))}
       </div>
 
@@ -58,12 +75,12 @@ export function Hero() {
             <p className="text-white/90 text-lg md:text-xl font-light mt-2 drop-shadow">
               A signature blend of comfort
             </p>
-            <a
-              href="#new-arrival"
-              className="inline-block mt-6 bg-white text-[#282C3F] text-[13px] font-bold tracking-widest px-8 py-3 rounded-full hover:bg-[#0275D8] hover:text-white transition-colors"
+            <button
+              onClick={() => goTo("#new-arrival")}
+              className="inline-block mt-6 bg-white text-[#282C3F] text-[13px] font-bold tracking-widest px-8 py-3 rounded-full hover:bg-[#0275D8] hover:text-white transition-all active:scale-95"
             >
               SHOP NOW
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -71,44 +88,49 @@ export function Hero() {
       {/* Quick links + app promo */}
       <div className="max-w-[1280px] mx-auto px-4 lg:px-6 py-4 flex flex-col md:flex-row items-center justify-center gap-3">
         <div className="flex items-center gap-2">
-          {["SHOP NOW", "MEN", "WOMEN", "KIDS"].map((l) => (
-            <a
-              key={l}
-              href="#new-arrival"
-              className="text-[12px] font-bold tracking-wide border border-[#DDD] rounded-full px-5 py-2 hover:border-[#0275D8] hover:text-[#0275D8] transition-colors"
+          {QUICK_LINKS.map((l) => (
+            <button
+              key={l.label}
+              onClick={() => goTo(l.target)}
+              className="text-[12px] font-bold tracking-wide border border-[#DDD] rounded-full px-5 py-2 hover:border-[#0275D8] hover:text-[#0275D8] transition-all active:scale-95"
             >
-              {l}
-            </a>
+              {l.label}
+            </button>
           ))}
         </div>
         <div className="flex items-center gap-3 md:ml-8">
           <span className="text-[12px] font-bold text-[#373A3C]">GET 5% OFF ON APP</span>
           {["Play Store", "App Store"].map((s) => (
-            <a
+            <button
               key={s}
-              href="#"
-              className="bg-black text-white text-[10px] leading-tight rounded-md px-3 py-1.5 flex flex-col hover:opacity-80"
+              onClick={() =>
+                toast({
+                  title: "Clothido app is coming soon 📱",
+                  description: "Web orders already enjoy free delivery over ৳ 1,500.",
+                })
+              }
+              className="bg-black text-white text-[10px] leading-tight rounded-md px-3 py-1.5 flex flex-col hover:opacity-80 transition-opacity active:scale-95"
             >
               <span className="opacity-70">Get it on</span>
               <span className="font-bold">{s}</span>
-            </a>
+            </button>
           ))}
         </div>
       </div>
 
       {/* Event announcement strip */}
       <div className="max-w-[1280px] mx-auto px-4 lg:px-6 pb-4">
-        <a
-          href="#"
-          className="flex items-center justify-center gap-2 bg-[#FFF6E5] border border-[#FFE2A8] rounded-lg px-4 py-3 text-[13px] text-[#373A3C] hover:border-[#F0A500] transition-colors"
+        <button
+          onClick={() => goTo("#bulk-order")}
+          className="w-full flex items-center justify-center gap-2 bg-[#FFF6E5] border border-[#FFE2A8] rounded-lg px-4 py-3 text-[13px] text-[#373A3C] hover:border-[#F0A500] transition-colors text-left"
         >
           <strong className="text-[#C47B00]">Event T-shirt</strong>
           <span>
             Need clothing with your own brand logo or design? We deliver worldwide at unbeatable
             prices.
           </span>
-          <strong className="text-[#C47B00] underline">Click here</strong>
-        </a>
+          <strong className="text-[#C47B00] underline">Get a quote</strong>
+        </button>
       </div>
 
       {/* Campaign popup — replaced hero artwork */}
@@ -147,10 +169,18 @@ export function Hero() {
                 </p>
               </div>
             </div>
+            <div className="p-4">
+              <button
+                onClick={() => goTo("#new-arrival")}
+                className="w-full h-11 rounded-full bg-[#0275D8] text-white text-[13px] font-bold tracking-widest hover:bg-[#0264b8] transition-all active:scale-95"
+              >
+                SHOP NOW
+              </button>
+            </div>
             <button
               onClick={() => setPopupOpen(false)}
               aria-label="Close campaign popup"
-              className="absolute top-2 right-2 h-8 w-8 grid place-items-center rounded-full bg-black/60 text-white hover:bg-black/80"
+              className="absolute top-2 right-2 h-8 w-8 grid place-items-center rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
             >
               <X className="h-4 w-4" />
             </button>

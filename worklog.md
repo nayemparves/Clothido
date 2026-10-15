@@ -63,3 +63,22 @@ Work Log:
 Stage Summary:
 - Root cause of the lingering girl picture was client-side cache, not the site content; the renamed asset forces every browser to load the male-only image
 - Site-wide imagery now guaranteed female-free: only male model (hero + about), headless mannequin, and garment-only shots
+
+---
+Task ID: 5
+Agent: Main Agent (Super Z)
+Task: Make every button on the site functional and highly responsive
+
+Work Log:
+- Extended src/lib/clothido-data.ts: synthesized 28 new-arrival products with keyword pricing, allProducts index, getProductById, categoryForName() label->collection mapper, productsForCategory(), sizesFor() (kids age sizes / one-size items), discountPercent()
+- Created src/lib/store.tsx: zustand store (cart, wishlist, user) persisted to localStorage via partialize + 11 overlay flags with open/close actions; hydration-safe useHasMounted via useSyncExternalStore
+- Built interactive components: search-overlay.tsx (live results, popular chips, see-all), quick-view.tsx (size selector w/ validation, qty stepper, add-to-bag / add & browse, wishlist, "more from category"), category-overlay.tsx (full-screen collection grid + 4-way sort + back/ESC), cart-drawer.tsx (free-delivery progress, qty/remove, 3-step checkout: cart -> delivery form w/ validation (name/phone/address + bKash/Nagad/COD) -> order confirmed w/ generated ID, cart clears), wishlist-drawer.tsx (move-to-bag single/all), info-modals.tsx (auth login/register w/ validation, track-order timeline w/ deterministic status, stores list, bulk quote form, affiliate form, info pages: about/terms/privacy/returns/FAQ accordion/careers w/ apply form)
+- Rewired all sections: header (mega-menu chips open category overlays, search opens overlay, badges on bag/wishlist, profile dropdown w/ track+logout, mobile drawer actions), hero (utility cards -> auth/track modals, quick chips -> section anchors, app badges -> toast, event strip -> bulk section, popup gained SHOP NOW CTA), new-arrival (click -> quick view, hover heart/quick-add, discount badges, prices), about medium tiles -> category overlays, category carousels + socks (tiles/cards/VIEW MORE all interactive, hover actions), promos (GET A QUOTE -> bulk modal, affiliate banner -> modal), footer (all 7 links -> info modals, socials -> real external links, app badges -> toast, hotline -> track order)
+- page.tsx mounts InteractiveShell (overlays + body scroll lock); layout.tsx adds scroll-smooth
+- Fixed React 19 lint errors (7x set-state-in-effect) via gate pattern: outer component reads store flag, inner content component remounts fresh per open; replaced useHasMounted effect with useSyncExternalStore
+- Fixed invalid nested <button> HTML in new-arrival cards (hydration error) -> div[role=button]
+- bun run lint: clean. Verified in agent-browser: search->quick view->size validation->add to bag->qty->checkout->validation->order CD-456542->success; wishlist heart->drawer->move to bag (badges update + persist); mega-menu chip->category overlay->sort price-asc->back; track order shows delivered timeline; login->profile dropdown->logout; stores/bulk/affiliate/FAQ modals; mobile 390px drawer->Frock chip->overlay; hero CTA scrolls (y=678); event strip scrolls to #bulk-order; 0 console errors
+
+Stage Summary:
+- Every clickable element on the site now performs a real action with toast/animation feedback; cart + wishlist + user session persist across reloads (localStorage)
+- New files: store.tsx, shell.tsx, search-overlay.tsx, quick-view.tsx, category-overlay.tsx, cart-drawer.tsx, wishlist-drawer.tsx, info-modals.tsx, product-bits.tsx; updated: clothido-data.ts, header/hero/new-arrival/about/category-carousel/socks-spotlight/promos/footer, page.tsx, layout.tsx

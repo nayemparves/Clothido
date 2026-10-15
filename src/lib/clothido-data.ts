@@ -267,3 +267,90 @@ export const partners = [
 
 export const formatBDT = (n: number) =>
   `৳ ${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+/* ------------------------------ SYNTHESIZED NEW-ARRIVAL PRODUCTS ------------------------------ */
+const priceForCard = (name: string): [number, number] => {
+  const n = name.toLowerCase();
+  if (n.includes("sock")) return [220, 290];
+  if (n.includes("mask")) return [380, 700];
+  if (n.includes("undergarment")) return [390, 550];
+  if (n.includes("women")) return [475, 950];
+  if (n.includes("pajama")) return [750, 1200];
+  if (n.includes("kids polo")) return [690, 1200];
+  if (n.includes("kids")) return [470, 620];
+  if (n.includes("jersey") || n.includes("football")) return [1290, 1600];
+  if (n.includes("sports")) return [890, 1200];
+  if (n.includes("hoodie")) return [1450, 1900];
+  if (n.includes("jacket")) return [2350, 2900];
+  if (n.includes("polo")) return [1250, 1600];
+  if (n.includes("designer")) return [690, 880];
+  if (n.includes("raglan")) return [640, 820];
+  if (n.includes("blank")) return [420, 560];
+  if (n.includes("short")) return [630, 890];
+  if (n.includes("trouser") || n.includes("track pant")) return [1290, 1700];
+  return [470, 620];
+};
+
+export const newArrivalProducts: Product[] = newArrivalCards.map((c, i) => {
+  const [price, oldPrice] = priceForCard(c.name);
+  return { id: `na${i + 1}`, name: c.name, price, oldPrice, image: c.image };
+});
+
+export const allProducts: Product[] = [
+  ...newArrivalProducts,
+  ...categorySections.flatMap((s) => s.products),
+  ...socksProducts,
+];
+
+const productMap = new Map(allProducts.map((p) => [p.id, p]));
+export const getProductById = (id: string | undefined | null): Product | undefined =>
+  id ? productMap.get(id) : undefined;
+
+/* ------------------------------ CATEGORY RESOLUTION ------------------------------ */
+export interface CategoryRequest {
+  categoryId: string;
+  title: string;
+}
+
+export function productsForCategory(categoryId: string): Product[] {
+  if (categoryId === "new") return newArrivalProducts;
+  if (categoryId === "socks") return socksProducts;
+  if (categoryId === "all") return allProducts;
+  return categorySections.find((s) => s.id === categoryId)?.products ?? [];
+}
+
+/** Maps any label (nav chip, tile, link) to the closest product collection. */
+export function categoryForName(label: string): CategoryRequest {
+  const n = label.toLowerCase();
+  if (n.includes("frock") || n.includes("kid") || n.includes("little ones"))
+    return { categoryId: "kids", title: label };
+  if (n.includes("women")) return { categoryId: "women", title: label };
+  if (
+    n.includes("kurti") || n.includes("tunic") || n.includes("co-ord") ||
+    n.includes("pajama") || n.includes("blouse") || n.includes("palazzo") ||
+    n.includes("scarf") || n.includes("top")
+  )
+    return { categoryId: "kurti", title: label };
+  if (n.includes("panjabi") || n.includes("kabli"))
+    return { categoryId: "panjabi", title: label };
+  if (n.includes("short")) return { categoryId: "shorts", title: label };
+  if (n.includes("jean") || n.includes("denim"))
+    return { categoryId: "denim", title: label };
+  if (n.includes("jersey") || n.includes("sport") || n.includes("football") || n.includes("training"))
+    return { categoryId: "jersey", title: label };
+  if (n.includes("polo")) return { categoryId: "polo", title: label };
+  if (n.includes("sock")) return { categoryId: "socks", title: label };
+  if (n.includes("mask")) return { categoryId: "mask", title: label };
+  return { categoryId: "new", title: label };
+}
+
+/* ------------------------------ PRODUCT HELPERS ------------------------------ */
+export function sizesFor(p: Product): string[] | null {
+  const n = p.name.toLowerCase();
+  if (/(mask|sock|cap|belt|wallet|undergarment)/.test(n)) return null;
+  if (n.includes("kid")) return ["2-3Y", "4-5Y", "6-7Y", "8-9Y"];
+  return ["S", "M", "L", "XL"];
+}
+
+export const discountPercent = (p: { price: number; oldPrice: number }) =>
+  p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;

@@ -9,24 +9,35 @@ import {
   Music2,
   Send,
 } from "lucide-react";
-import { ClothidoLogo, ClothidoLogoWhite } from "./logo";
+import { ClothidoLogoWhite } from "./logo";
 import { useToast } from "@/hooks/use-toast";
+import { useStore } from "@/lib/store";
 
-const FOOT_LINKS = [
-  "About Clothido",
-  "Terms & Conditions",
-  "Privacy Policy",
-  "Cancellation & Return Policy",
-  "FAQs",
-  "Contact Us",
-  "Careers",
+const FOOT_LINKS: { label: string; key: string }[] = [
+  { label: "About Clothido", key: "about" },
+  { label: "Terms & Conditions", key: "terms" },
+  { label: "Privacy Policy", key: "privacy" },
+  { label: "Cancellation & Return Policy", key: "returns" },
+  { label: "FAQs", key: "faq" },
+  { label: "Contact Us", key: "faq" },
+  { label: "Careers", key: "careers" },
 ];
 
 const PAYMENTS = ["bKash", "Nagad", "Rocket", "Visa", "Mastercard", "Upay"];
 
+const SOCIALS = [
+  { icon: Instagram, label: "Instagram", url: "https://instagram.com" },
+  { icon: Music2, label: "TikTok", url: "https://tiktok.com" },
+  { icon: Facebook, label: "Facebook", url: "https://facebook.com" },
+  { icon: Twitter, label: "X (Twitter)", url: "https://x.com" },
+  { icon: Youtube, label: "YouTube", url: "https://youtube.com" },
+];
+
 export function Footer() {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
+  const openInfo = useStore((s) => s.openInfo);
+  const openTrack = useStore((s) => s.openTrack);
 
   const subscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,10 +60,13 @@ export function Footer() {
           <ClothidoLogoWhite className="h-8" />
           <ul className="mt-5 space-y-2.5">
             {FOOT_LINKS.map((l) => (
-              <li key={l}>
-                <a href="#" className="text-[13px] text-white/70 hover:text-white transition-colors">
-                  {l}
-                </a>
+              <li key={l.label}>
+                <button
+                  onClick={() => openInfo(l.key)}
+                  className="text-[13px] text-white/70 hover:text-white transition-colors text-left"
+                >
+                  {l.label}
+                </button>
               </li>
             ))}
           </ul>
@@ -76,13 +90,20 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="h-11 px-5 rounded-md bg-[#0275D8] hover:bg-[#0264b8] text-white text-[13px] font-bold flex items-center gap-1.5 transition-colors"
+              className="h-11 px-5 rounded-md bg-[#0275D8] hover:bg-[#0264b8] text-white text-[13px] font-bold flex items-center gap-1.5 transition-all active:scale-95"
             >
               Subscribe <Send className="h-3.5 w-3.5" />
             </button>
           </form>
           <p className="mt-6 text-[12px] text-white/50">
-            Hotline: 16XXX &nbsp;·&nbsp; Open 9:00 – 22:00 (Fri 14:00 – 22:00)
+            Hotline:{" "}
+            <button
+              onClick={openTrack}
+              className="underline hover:text-white transition-colors"
+            >
+              Track your order
+            </button>{" "}
+            &nbsp;·&nbsp; Open 9:00 – 22:00 (Fri 14:00 – 22:00)
           </p>
         </div>
 
@@ -90,18 +111,14 @@ export function Footer() {
         <div>
           <p className="text-[15px] font-bold mb-3">Follow Clothido on social</p>
           <div className="flex gap-3">
-            {[
-              { icon: Instagram, label: "Instagram" },
-              { icon: Music2, label: "TikTok" },
-              { icon: Facebook, label: "Facebook" },
-              { icon: Twitter, label: "X (Twitter)" },
-              { icon: Youtube, label: "YouTube" },
-            ].map(({ icon: Icon, label }) => (
+            {SOCIALS.map(({ icon: Icon, label, url }) => (
               <a
                 key={label}
-                href="#"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
-                className="h-9 w-9 grid place-items-center rounded-full bg-white/10 hover:bg-[#0275D8] transition-colors"
+                className="h-9 w-9 grid place-items-center rounded-full bg-white/10 hover:bg-[#0275D8] transition-all hover:scale-105 active:scale-95"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -109,14 +126,19 @@ export function Footer() {
           </div>
           <div className="flex gap-3 mt-6">
             {["Play Store", "App Store"].map((s) => (
-              <a
+              <button
                 key={s}
-                href="#"
-                className="bg-black/40 border border-white/15 rounded-md px-3 py-2 text-[10px] leading-tight hover:border-white/40"
+                onClick={() =>
+                  toast({
+                    title: "Clothido app is coming soon 📱",
+                    description: "All app perks will apply to early sign-ups.",
+                  })
+                }
+                className="bg-black/40 border border-white/15 rounded-md px-3 py-2 text-[10px] leading-tight hover:border-white/40 transition-colors active:scale-95"
               >
                 <span className="block opacity-60">Get it on</span>
                 <span className="font-bold">{s}</span>
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -146,5 +168,5 @@ export function Footer() {
 }
 
 export function FooterLogo() {
-  return <ClothidoLogo />;
+  return <ClothidoLogoWhite />;
 }
