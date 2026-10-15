@@ -44,7 +44,7 @@ export const newArrivalCards: CategoryCard[] = [
   { name: "Track Pants", image: `${IMG}/trousers-beige.png` },
   { name: "Mens Undergarments", image: `${IMG}/socks-black.png` },
   { name: "Womens T-shirt", image: `${IMG}/women-tee-rose.png` },
-  { name: "Womens Trendy Pajamas", image: `${IMG}/kurti-teal.png` },
+  { name: "Womens Trendy Pajamas", image: `${IMG}/kurti-teal-v2.png` },
   { name: "Kids Polo", image: `${IMG}/kids-polo-blue.png` },
   { name: "Kids Half Sleeve T-shirt", image: `${IMG}/kids-tee-yellow.png` },
   { name: "Kids Full Sleeve T-shirt", image: `${IMG}/kids-tee-yellow.png` },
@@ -73,7 +73,7 @@ export const bigTiles: { name: string; image: string }[] = [
   { name: "Short Sleeve Blanks", image: `${IMG}/tee-black.png` },
   { name: "Drop Shoulder", image: `${IMG}/tee-navy.png` },
   { name: "Full Sleeve", image: `${IMG}/raglan-grey.png` },
-  { name: "Women's T-shirt", image: `${IMG}/kurti-pink.png` },
+  { name: "Women's T-shirt", image: `${IMG}/kurti-pink-v2.png` },
 ];
 
 /* ------------------------------ CATEGORY SECTIONS ------------------------------ */
@@ -98,17 +98,17 @@ export const categorySections: CategorySection[] = [
   {
     id: "kurti",
     tileTitle: "Kurti, Tunic & Tops",
-    tileImage: `${IMG}/kurti-pink.png`,
-    tileImage2: `${IMG}/kurti-teal.png`,
+    tileImage: `${IMG}/kurti-pink-v2.png`,
+    tileImage2: `${IMG}/kurti-teal-v2.png`,
     viewMoreLabel: "Women Premium Co-ords - Liana",
     products: [
-      { id: "k1", name: "Womens Premium Kurti - Petra", price: 900, oldPrice: 1800, image: `${IMG}/kurti-pink.png` },
-      { id: "k2", name: "Womens Premium Kurti - Elarna", price: 900, oldPrice: 1800, image: `${IMG}/kurti-teal.png` },
-      { id: "k3", name: "Teens Premium Co-Ords - Lush", price: 1300, oldPrice: 2600, image: `${IMG}/kurti-teal.png` },
-      { id: "k4", name: "Women's Premium Co-Ords Set - Fiora", price: 1250, oldPrice: 2500, image: `${IMG}/kurti-pink.png` },
+      { id: "k1", name: "Womens Premium Kurti - Petra", price: 900, oldPrice: 1800, image: `${IMG}/kurti-pink-v2.png` },
+      { id: "k2", name: "Womens Premium Kurti - Elarna", price: 900, oldPrice: 1800, image: `${IMG}/kurti-teal-v2.png` },
+      { id: "k3", name: "Teens Premium Co-Ords - Lush", price: 1300, oldPrice: 2600, image: `${IMG}/kurti-teal-v2.png` },
+      { id: "k4", name: "Women's Premium Co-Ords Set - Fiora", price: 1250, oldPrice: 2500, image: `${IMG}/kurti-pink-v2.png` },
       { id: "k5", name: "Teens Premium Tops - Ziya", price: 800, oldPrice: 1600, image: `${IMG}/women-tee-rose.png` },
       { id: "k6", name: "Teens Premium Tops - Liora", price: 900, oldPrice: 1800, image: `${IMG}/women-tee-mint.png` },
-      { id: "k7", name: "Women's Premium Kurti - Blossom Pink", price: 1200, oldPrice: 2400, image: `${IMG}/kurti-pink.png` },
+      { id: "k7", name: "Women's Premium Kurti - Blossom Pink", price: 1200, oldPrice: 2400, image: `${IMG}/kurti-pink-v2.png` },
     ],
   },
   {
@@ -160,7 +160,7 @@ export const categorySections: CategorySection[] = [
     tileTitle: "Little Ones Tees",
     tileImage: `${IMG}/kids-tee-yellow.png`,
     tileImage2: `${IMG}/kids-polo-blue.png`,
-    tileImage3: `${IMG}/kids-frock.png`,
+    tileImage3: `${IMG}/kids-frock-v2.png`,
     viewMoreLabel: "Kids Premium Polo T-Shirt - Playground",
     products: [
       { id: "kd1", name: "Kid's Premium T-shirt - Whisker", price: 470, oldPrice: 620, image: `${IMG}/kids-tee-yellow.png` },
@@ -169,7 +169,7 @@ export const categorySections: CategorySection[] = [
       { id: "kd4", name: "Kids Premium Polo T-Shirt - Duckling", price: 690, oldPrice: 1200, image: `${IMG}/kids-polo-blue.png` },
       { id: "kd5", name: "Kids Premium T-Shirt - Croco", price: 470, oldPrice: 620, image: `${IMG}/kids-tee-yellow.png` },
       { id: "kd6", name: "Kids Premium Polo T-Shirt - Wild Friends", price: 690, oldPrice: 1200, image: `${IMG}/kids-polo-blue.png` },
-      { id: "kd7", name: "Kids Premium Frock - Meadow", price: 890, oldPrice: 1400, image: `${IMG}/kids-frock.png` },
+      { id: "kd7", name: "Kids Premium Frock - Meadow", price: 890, oldPrice: 1400, image: `${IMG}/kids-frock-v2.png` },
     ],
   },
   {
@@ -246,7 +246,7 @@ export const smallTiles: { name: string; image: string }[] = [
   { name: "Belt", image: `${IMG}/belt-brown.png` },
   { name: "Wallet", image: `${IMG}/wallet-brown.png` },
   { name: "Little Ones Tees", image: `${IMG}/kids-tee-yellow.png` },
-  { name: "Frock", image: `${IMG}/kids-frock.png` },
+  { name: "Frock", image: `${IMG}/kids-frock-v2.png` },
   { name: "T-shirts and Shorts", image: `${IMG}/kids-tee-yellow.png` },
   { name: "Pants", image: `${IMG}/trousers-beige.png` },
 ];

@@ -33,3 +33,18 @@ Work Log:
 
 Stage Summary:
 - Hero + campaign popup now feature only the male model; all other sections unchanged
+
+---
+Task ID: 3
+Agent: Main Agent (Super Z)
+Task: Remove ALL women/girl pictures from the entire website
+
+Work Log:
+- Swept all 34 images: found woman model in kurti-pink.png; feminine body forms in kurti-teal.png and kids-frock.png; all others were garment-only or male
+- Regenerated the 3 images as garment-only flat-lay shots (no person, no mannequin form)
+- Hit dev-server in-memory image cache serving stale images at same URLs → cache-busted by renaming files to kurti-pink-v2.png, kurti-teal-v2.png, kids-frock-v2.png and updating 12 references in src/lib/clothido-data.ts via sed
+- Cleared .next/cache/images; fresh browser session verified
+- Full-page sweep screenshot confirms zero female depictions site-wide; hero/about remain male-only; product sections unchanged
+
+Stage Summary:
+- All imagery site-wide is now people-free except the male model (hero campaign + about lifestyle image); kurti/kids sections show garment-only product shots
